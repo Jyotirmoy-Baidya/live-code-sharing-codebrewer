@@ -56,10 +56,17 @@ const Lobby = () => {
 
         // navigate(`/host/room/${roomid}`)
     }
+
+    const [joinroomId, setJoinroomId] = useState('');
     return (
         <div className=''>
             <input type="text" value={roomName} onChange={(e) => setRoomName(e.target.value)} />
+
             <button className='bg-yellow-400' onClick={() => divertToRoom()}>Create Room</button>
+
+            <input type="text" value={joinroomId} onChange={(e) => setJoinroomId(e.target.value)} />
+            <NavLink to={`/participant/${roomName}/${joinroomId}`} className='bg-yellow-400 py-3 mt-2 w-48 text-center rounded-md mx-auto'>Enter the room as participant</NavLink>
+
             {roomidPopUp &&
                 <div className='absolute top-0 bg-primary-black h-full w-full flex justify-center items-center bg-opacity-30'>
                     <div className='flex flex-col w-2/6 p-5 h-fit rounded-lg bg-gray-800'>
