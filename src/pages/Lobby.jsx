@@ -51,7 +51,8 @@ const Lobby = () => {
         }
         const room = generateRoomId();
         setRoomid(room);
-        createRoom(room);
+        setRoomidPopUp(true);
+        // createRoom(room);
 
         // navigate(`/host/room/${roomid}`)
     }
