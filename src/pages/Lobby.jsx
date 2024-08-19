@@ -72,6 +72,9 @@ const Lobby = () => {
                             </div>
                         </div>
                         <NavLink to={`/host/${roomName}/${roomid}`} className='bg-yellow-400 py-3 mt-2 w-48 text-center rounded-md mx-auto'>Enter the room as host</NavLink>
+
+                        <NavLink to={`/participant/${roomName}/${roomid}`} className='bg-yellow-400 py-3 mt-2 w-48 text-center rounded-md mx-auto'>Enter the room as participant</NavLink>
+
                     </div>
                 </div>
             }
