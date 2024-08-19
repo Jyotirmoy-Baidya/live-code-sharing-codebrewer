@@ -78,11 +78,11 @@ function CodingPlayground({ code, setCode, language, input, setInput, output, me
 
 
   return (
-    <div className="w-1/2 h-[36rem] p-2  flex flex-col gap-2 bg-primary-black text-white">
+    <div className=" h-[36rem] p-2  flex flex-col gap-2 bg-primary-black text-white">
       {/* Code Editor */}
       <div className='w-full'>
         <CodeMirror
-          value={`${editorData === '' ? editorBoxData : editorData}`}
+          value={`${editorData}`}
           // height='100%'
           extensions={[
             getLanguageExtension(language),

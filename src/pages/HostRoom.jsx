@@ -133,6 +133,15 @@ const HostRoom = ({ roomid, uid }) => {
                             playVideo={cameraOn}
                             className='camera-video'
                         />
+                        {screenSharing && screenTrack && (
+                            <LocalUser
+                                videoTrack={screenTrack}
+                                cameraOn={true}
+                                micOn={false}
+                                playVideo={true}
+                                className='h-[29rem]'
+                            />
+                        )}
                         {/* {
                             <div className={`h-[29rem] rounded-md bg-violet-800 `}>
                                 Jyot

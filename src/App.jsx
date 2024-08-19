@@ -30,14 +30,14 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<><Lobby /></>} />
-          <Route path='/participant/:roomname/:roomid' element={
+          <Route path='/participant/:roomid' element={
 
             <AgoraRTCProvider client={agoraClient}>
               <div>jyoti</div>
               <ParticipantRoomProvider />
             </AgoraRTCProvider>
           } />
-          <Route path='/host/:roomname/:roomid' element={
+          <Route path='/host/:roomid' element={
             <AgoraRTCProvider client={agoraClient}>
               <HostRoomProvider />
             </AgoraRTCProvider>

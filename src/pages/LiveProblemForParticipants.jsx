@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import CodingPlayground from '../CodingPlayground';
 import CustomDropdown from '../CustomDropDown';
 import axiosHandler from '../AxiosInstance';
+import CodingPlaygroundForParticipants from '../CodingPlaygroundForParticipant';
 
 
 
@@ -24,7 +25,7 @@ const options = [
     { value: 'python', label: 'Python' }
 ];
 
-const LiveProblem = ({ questionid = '', editorBoxData, setEditorBoxData, editorData, setEditorData }) => {
+const LiveProblemForParticipants = ({ questionid = '', editorBoxData, setEditorBoxData, editorData, setEditorData }) => {
 
 
     const boilerplateCode = (lang) => {
@@ -301,7 +302,7 @@ const LiveProblem = ({ questionid = '', editorBoxData, setEditorBoxData, editorD
                                 }
                                 }>{runCodeLoading ? <AiOutlineLoading3Quarters className='text-lg loading-spin' /> : "Run Code"}</div>
                             </div>
-                            <CodingPlayground code={code} setCode={setCode} language={language} input={input} setInput={setInput} output={output} metrics={metrics} getLanguageExtension={getLanguageExtension} customInput={customInput} setCustomInput={setCustomInput} testCasesResult={testCasesResult} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
+                            <CodingPlaygroundForParticipants code={code} setCode={setCode} language={language} input={input} setInput={setInput} output={output} metrics={metrics} getLanguageExtension={getLanguageExtension} customInput={customInput} setCustomInput={setCustomInput} testCasesResult={testCasesResult} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
 
 
                         </div>
@@ -310,4 +311,4 @@ const LiveProblem = ({ questionid = '', editorBoxData, setEditorBoxData, editorD
     )
 }
 
-export default LiveProblem
+export default LiveProblemForParticipants

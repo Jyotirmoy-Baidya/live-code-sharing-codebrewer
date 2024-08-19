@@ -23,6 +23,7 @@ import ProblemStatementsForVideoConfee from '../ProblemStatementsForVideoConfee'
 import RealTimeChat from '../RealTimeChat';
 import LiveProblem from './LiveProblem';
 import RealTimeChatForParticipant from './RealTimeChatForParticipant';
+import LiveProblemForParticipants from './LiveProblemForParticipants';
 
 const ParticipantRoom = ({ roomid, uid }) => {
     const appId = '15b767a0b7dd4fe488826585f7eeb187';
@@ -166,7 +167,7 @@ const ParticipantRoom = ({ roomid, uid }) => {
                         {sharingQuestion &&
                             <>
                                 <div className='h-[27.6rem] flex-col p-2 rounded-md bg-primary-black overflow-scroll design-scrollbar text-white'>
-                                    <LiveProblem questionid={questionid} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
+                                    <LiveProblemForParticipants questionid={questionid} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
                                 </div>
                             </>
                         }
