@@ -72,7 +72,9 @@ const Lobby = () => {
                             </div>
                         </div>
                         <NavLink to={`/host/${roomName}/${roomid}`} className='bg-yellow-400 py-3 mt-2 w-48 text-center rounded-md mx-auto'>Enter the room as host</NavLink>
-
+                        <a href={`/participant/${roomName}/${roomid}`} target="_blank" rel="noopener noreferrer">
+                            Your Link Text Participant
+                        </a>
                         <NavLink to={`/participant/${roomName}/${roomid}`} className='bg-yellow-400 py-3 mt-2 w-48 text-center rounded-md mx-auto'>Enter the room as participant</NavLink>
 
                     </div>
