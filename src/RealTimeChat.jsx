@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import AgoraRTM from 'agora-rtm-sdk';
+import { AiOutlineMessage } from 'react-icons/ai';
+import { BsFillSendFill } from 'react-icons/bs';
 
-const RealTimeChat = ({ appId, roomid, userId, setDisconnectRtm, setQuestionBlock, setSharingQuestion, setQuestionid, questionid }) => {
+const chats = [
+    { sender: 'Alice', message: 'Hello everyone!' },
+    { sender: 'Bob', message: 'Hi Alice!' },
+    { sender: 'Charlie', message: 'Good to see you all.' },
+];
+
+const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuestion, setQuestionid, questionid, messages, setMessages, editorData, setEditorData, editorBoxData, setEditorBoxData }) => {
     const [client, setClient] = useState(null);
     const [channel, setChannel] = useState(null);
-    const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
 
 
@@ -40,23 +47,23 @@ const RealTimeChat = ({ appId, roomid, userId, setDisconnectRtm, setQuestionBloc
                     console.error('Failed to parse message', error);
                     return;
                 }
-
+                console.log(messageData);
                 const { editor = '', text: parsedText = '', questionid = '', setQuestion = false } = messageData;
-
+                console.log("run");
                 if (parsedText !== '') {
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
-                        { senderId, text: parsedText },
-                    ]);
+                    console.log("check 11");
+                    const msgs = messages.concat({ senderId, text: parsedText });
+                    console.log(msgs);
+                    setMessages(msgs);
                 }
 
                 if (editor !== '') {
+                    console.log("jyoti");
                     setEditorBoxData(editor);
                 }
 
                 if (questionid != '') {
                     setQuestionBlock(true);
-                    console.log("questionsent " + questionid);
                     setSharingQuestion(true);
                     setQuestionid(questionid);
                     localStorage.setItem('quesid', questionid);
@@ -90,13 +97,13 @@ const RealTimeChat = ({ appId, roomid, userId, setDisconnectRtm, setQuestionBloc
     //     setInputMessage('');
     // };
 
-    const sendMessage = async () => {
+    const sendChatToChannel = async () => {
         if (inputMessage.trim() === '') return;
 
         // Send the message as a JSON string
         await channel.sendMessage({ text: JSON.stringify({ text: inputMessage }) });
 
-        // Update the local message state
+        // // Update the local message state
         setMessages((prevMessages) => [
             ...prevMessages,
             { senderId: userId, text: inputMessage },
@@ -106,15 +113,24 @@ const RealTimeChat = ({ appId, roomid, userId, setDisconnectRtm, setQuestionBloc
         setInputMessage('');
     };
 
-    const [editorData, setEditorData] = useState("");
-    const [editorBoxData, setEditorBoxData] = useState("");
-    const sendEditorData = async (editorMsg) => {
-        // Trim the message and check if it's empty
-        if (editorMsg.trim() === '') return;
+    let sendEditorData;
+    useEffect(() => {
+        if (editorData != '') {
 
-        // Send the message as a JSON string
-        await channel.sendMessage({ text: JSON.stringify({ editor: editorMsg }) });
-    }
+            sendEditorData = async (editorMsg) => {
+                // Trim the message and check if it's empty
+                if (editorMsg.trim() === '') return;
+                console.log(editorMsg);
+
+                // Send the message as a JSON string
+                await channel.sendMessage({ text: JSON.stringify({ editor: editorMsg }) });
+            }
+
+            sendEditorData(editorData)
+        }
+
+    }, [editorData])
+
 
     useEffect(() => {
         console.log("sending question");
@@ -133,43 +149,39 @@ const RealTimeChat = ({ appId, roomid, userId, setDisconnectRtm, setQuestionBloc
     }, [questionid])
 
 
-
+    // Messsage Pop Up 
+    const [showMessage, setShowMessage] = useState(false);
 
     return (
-        <div>
-            <div className='text-white'>
-                {messages.map((message, index) => (
-                    <div key={index}>
-                        <strong>{message.senderId}:</strong> {message.text}
+        <>
+            <div className='fixed bottom-6 right-6 bg-white p-3 rounded-full'
+                onClick={() => { setShowMessage(true); }}>
+                <AiOutlineMessage className='text-4xl' />
+            </div>
+            {/* message box   */}
+            {showMessage &&
+                <div className="fixed bottom-4 right-4 w-80 max-h-[36rem] p-4 bg-gray-800 text-white rounded-lg shadow-lg ">
+                    <div className="flex justify-between items-center mb-2">
+                        <h4 className="text-lg font-semibold">Meeting Chats</h4>
+                        <button onClick={() => setShowMessage(false)} className="text-lg font-bold focus:outline-none">&times;</button>
                     </div>
-                ))}
-            </div>
-            <input
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') sendMessage();
-                }}
-                placeholder="Type your message here..."
-            />
-            <button className='bg-white' onClick={sendMessage}>Send</button>
+                    <div className="bg-primary-black mb-3 flex flex-col h-[28rem] design-scrollbar gap-2 overflow-scroll p-1 rounded-md">
+                        {messages.map((chat, index) => (
+                            <div key={index} className="p-2 bg-gray-700 rounded-lg">
+                                <strong>{chat.senderId}:</strong> <span>{chat.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className='input-message flex w-full gap-1'>
+                        <input type="text" className='rounded-full font-medium bg-gray-300 w-full text-gray-700 outline-none py-2 px-3 text-sm' name="" id="" value={inputMessage} onChange={(e) => { setInputMessage(e.target.value) }} />
+                        <button className='p-2 rounded-full my-auto flex justify-center items-center bg-primary text-black ' onClick={() => sendChatToChannel()}>
+                            <BsFillSendFill />
+                        </button>
+                    </div>
+                </div>
+            }
 
-            <div className='bg-primary text-black'>
-                <input
-                    type="text"
-                    value={editorData}
-                    onChange={(e) => { setEditorData(e.target.value); sendEditorData(e.target.value) }}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') sendMessage();
-                    }}
-                    placeholder="Type your Editor..."
-                />
-                <button className='bg-white' onClick={sendMessage}>Send</button>
-
-                <div className='text-white bg-primary-black'>{editorBoxData}</div>
-            </div>
-        </div>
+        </>
     );
 };
 

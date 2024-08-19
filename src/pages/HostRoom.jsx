@@ -28,11 +28,17 @@ const HostRoom = ({ username, roomid, uid }) => {
 
 
     const [activeConnection, setActiveConnection] = useState(true);
+
+    // Conference Controls 
     const [micOn, setMic] = useState(true);
     const [cameraOn, setCamera] = useState(true);
     const [screenSharing, setScreenSharing] = useState(false);
     const [screenTrack, setScreenTrack] = useState(null);
+
+    //Questionid which is to be displayed
     const [questionid, setQuestionid] = useState("");
+
+
     const navigate = useNavigate();
 
 
@@ -91,27 +97,24 @@ const HostRoom = ({ username, roomid, uid }) => {
     // const handleScreenSharing = () => {
     //     setScreenSharing(!screenSharing);
     // }
+
+    //Question Block Datas
     const [questionBlock, setQuestionBlock] = useState(false);
     const [questionPopUp, setQuestionPopUp] = useState(false);
     const [sharingQuestion, setSharingQuestion] = useState(false);
 
     const [search, setSearch] = useState("");
 
-    const [question, setQuestion] = useState();
 
-    const handleQuestionSharing = async (problemid) => {
+    const handleQuestionSharing = async () => {
         setSharingQuestion(true);
-        setQuestionPopUp(false)
-        setQuestion({
-            description: "Lorem",
-            title: 'Sum of two numbers'
-        });
+        setQuestionPopUp(false);
     }
 
-    const [questionData, setQuestionData] = useState("");
-
-    // Real time messaging 
-    const [disconnectRtm, setDisconnectRtm] = useState();
+    //Chat Sharing Data
+    const [messages, setMessages] = useState([]);
+    const [editorData, setEditorData] = useState("");
+    const [editorBoxData, setEditorBoxData] = useState("");
 
 
 
@@ -177,27 +180,18 @@ const HostRoom = ({ username, roomid, uid }) => {
 
                                         ))
                                     }
-                                    {/* {
-                                        remoteUsers.map((user, i) => (
-                                            <div key={i} className="h-28 flex justify-center items-center remote-video-container rounded-md bg-violet-800">
-                                                <div>{user}</div>
-                                            </div>
-
-                                        ))
-                                    } */}
                                 </div>
                             </div>
                         }
                         {sharingQuestion &&
                             <>
                                 <div className='h-[27.6rem] flex-col p-2 rounded-md bg-primary-black overflow-scroll design-scrollbar text-white'>
-                                    <LiveProblem questionid={questionid} />
+                                    <LiveProblem questionid={questionid} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
                                 </div>
-
                             </>
                         }
                     </div>
-                    <RealTimeChat setDisconnectRtm={setDisconnectRtm} appId={appId} roomid={roomid} userId={uid} setQuestionBlock={setQuestionBlock} setSharingQuestion={setSharingQuestion} setQuestionid={setQuestionid} questionid={questionid} />
+                    <RealTimeChat appId={appId} roomid={roomid} userId={uid} setQuestionBlock={setQuestionBlock} setSharingQuestion={setSharingQuestion} setQuestionid={setQuestionid} questionid={questionid} messages={messages} setMessages={setMessages} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
                 </div>
                 <div id="controlsToolbar" className="gap-10  mx-auto mt-auto mb-4 text-white flex ">
                     <button className="btn text-3xl" onClick={() => setMic(a => !a)}>

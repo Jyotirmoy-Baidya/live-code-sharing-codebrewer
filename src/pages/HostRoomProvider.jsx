@@ -50,8 +50,6 @@ const HostRoomProvider = () => {
                     host.username == '' && host._id == '' ?
                         <>You are not logged in. Failed to fetch user</> :
                         <>
-
-
                             <LoginHeader />
                             <HostRoom uid={generateRandomCode()} roomid={roomid} username={host.username} />
                         </>

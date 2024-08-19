@@ -10,7 +10,7 @@ import { closeBrackets } from '@codemirror/autocomplete';
 import { TiTick } from 'react-icons/ti';
 import { GiCrossMark } from 'react-icons/gi';
 
-function CodingPlayground({ code, setCode, language, input, setInput, output, metrics, getLanguageExtension, customInput, setCustomInput, testCasesResult }) {
+function CodingPlayground({ code, setCode, language, input, setInput, output, metrics, getLanguageExtension, customInput, setCustomInput, testCasesResult, editorBoxData, setEditorBoxData, editorData, setEditorData }) {
 
 
   const javaKeywords = [
@@ -82,7 +82,7 @@ function CodingPlayground({ code, setCode, language, input, setInput, output, me
       {/* Code Editor */}
       <div className='w-full'>
         <CodeMirror
-          value={code}
+          value={`${editorData === '' ? editorBoxData : editorData}`}
           // height='100%'
           extensions={[
             getLanguageExtension(language),
@@ -90,7 +90,7 @@ function CodingPlayground({ code, setCode, language, input, setInput, output, me
             closeBrackets()   // Optional: Automatically close brackets and quotes
           ]}
           theme={oneDark}
-          onChange={(value) => setCode(value)}
+          onChange={(value) => { setCode(value), setEditorData(value) }}
           className="text h-full min-h-96 bg-gray-800 design-scrollbar"
         />
       </div>
