@@ -42,6 +42,7 @@ const App = () => {
               <HostRoomProvider />
             </AgoraRTCProvider>
           } />
+          <Route path="/jyoti" element={<div className='text-red-300'>Jyoti</div>} />
         </Routes>
         {/* <AgoraRTCProvider client={agoraClient}>
           <DesignHost userId={userId} />
