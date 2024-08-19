@@ -31,7 +31,9 @@ const App = () => {
         <Routes>
           <Route path='/' element={<><Lobby /></>} />
           <Route path='/participant/:roomname/:roomid' element={
+
             <AgoraRTCProvider client={agoraClient}>
+              <div>jyoti</div>
               <ParticipantRoomProvider />
             </AgoraRTCProvider>
           } />
