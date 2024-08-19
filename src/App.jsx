@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import HostRoom from './pages/HostRoom';
 import HostRoomProvider from './pages/HostRoomProvider';
 import LiveProblem from './pages/LiveProblem';
+import ParticipantRoomProvider from './pages/ParticipantRoomProvider';
 
 const App = () => {
   // const agoraClient = useRTCClient(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })); // Initialize Agora Client
@@ -28,8 +29,12 @@ const App = () => {
     <div className="h-screen w-screen bg-black">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<><Lobby /><LiveProblem /></>} />
-          <Route path='/participant/:roomid' element={<ParticipantRoom />} />
+          <Route path='/' element={<><Lobby /></>} />
+          <Route path='/participant/:roomname/:roomid' element={
+            <AgoraRTCProvider client={agoraClient}>
+              <ParticipantRoomProvider />
+            </AgoraRTCProvider>
+          } />
           <Route path='/host/:roomname/:roomid' element={
             <AgoraRTCProvider client={agoraClient}>
               <HostRoomProvider />

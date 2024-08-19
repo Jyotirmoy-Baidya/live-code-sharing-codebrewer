@@ -3,6 +3,8 @@ import { FaCut } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom'
 import CopyToClipboard from '../CopyToClipboard';
 import CopyLinkToClipboard from '../CopyLinkToClipboard';
+import axiosHandler from '../AxiosInstance';
+import toast from 'react-hot-toast';
 
 
 
@@ -11,7 +13,7 @@ const Lobby = () => {
     const [roomName, setRoomName] = useState("");
     const [roomid, setRoomid] = useState("");
     const [roomidPopUp, setRoomidPopUp] = useState(false);
-
+    const [loading, setLoading] = useState(false);
 
     function generateRoomId() {
         const chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -25,6 +27,21 @@ const Lobby = () => {
         return roomId;
     }
 
+    const createRoom = async (room) => {
+        setLoading(true);
+        const response = await axiosHandler('post', 'room/create-room', {
+            roomName,
+            roomId: room,
+        })
+        if (response.success == true) {
+
+            setRoomidPopUp(true);
+        }
+        else {
+            toast.error("room not created");
+        }
+    }
+
     const divertToRoom = () => {
         if (roomName.trim() === '') {
 
@@ -32,8 +49,10 @@ const Lobby = () => {
             return;
             //Toast error
         }
-        setRoomid(generateRoomId);
-        setRoomidPopUp(true);
+        const room = generateRoomId();
+        setRoomid(room);
+        createRoom(room);
+
         // navigate(`/host/room/${roomid}`)
     }
     return (

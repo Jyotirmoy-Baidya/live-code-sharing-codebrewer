@@ -23,7 +23,7 @@ import ProblemStatementsForVideoConfee from '../ProblemStatementsForVideoConfee'
 import RealTimeChat from '../RealTimeChat';
 import LiveProblem from './LiveProblem';
 
-const HostRoom = ({ username, roomid, uid }) => {
+const HostRoom = ({ roomid, uid }) => {
     const appId = '15b767a0b7dd4fe488826585f7eeb187';
 
 

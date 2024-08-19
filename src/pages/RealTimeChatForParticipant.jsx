@@ -5,7 +5,7 @@ import { BsFillSendFill } from 'react-icons/bs';
 
 
 
-const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuestion, setQuestionid, questionid, messages, setMessages, editorData, setEditorData, editorBoxData, setEditorBoxData }) => {
+const RealTimeChatForParticipant = ({ appId, roomid, userId, setQuestionBlock, setSharingQuestion, setQuestionid, questionid, messages, setMessages, setEditorBoxData }) => {
     const [client, setClient] = useState(null);
     const [channel, setChannel] = useState(null);
     const [inputMessage, setInputMessage] = useState('');
@@ -100,39 +100,39 @@ const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuest
     };
 
     let sendEditorData;
-    useEffect(() => {
-        if (editorData != '') {
+    // useEffect(() => {
+    //     if (editorData != '') {
 
-            sendEditorData = async (editorMsg) => {
-                // Trim the message and check if it's empty
-                if (editorMsg.trim() === '') return;
-                console.log(editorMsg);
+    //         sendEditorData = async (editorMsg) => {
+    //             // Trim the message and check if it's empty
+    //             if (editorMsg.trim() === '') return;
+    //             console.log(editorMsg);
 
-                // Send the message as a JSON string
-                await channel.sendMessage({ text: JSON.stringify({ editor: editorMsg }) });
-            }
+    //             // Send the message as a JSON string
+    //             await channel.sendMessage({ text: JSON.stringify({ editor: editorMsg }) });
+    //         }
 
-            sendEditorData(editorData)
-        }
+    //         sendEditorData(editorData)
+    //     }
 
-    }, [editorData])
+    // }, [editorData])
 
 
-    useEffect(() => {
-        console.log("sending question");
-        if (questionid != '') {
-            const sendQuestionStatus = async () => {
-                if (localStorage.getItem('questionid')) {
-                    const quesid = localStorage.getItem('questionid');
-                    console.log("seding QUestion" + quesid);
-                    const c = await channel.sendMessage({ text: JSON.stringify({ questionid: questionid }) });
-                    console.log(c);
-                }
-            }
+    // useEffect(() => {
+    //     console.log("sending question");
+    //     if (questionid != '') {
+    //         const sendQuestionStatus = async () => {
+    //             if (localStorage.getItem('questionid')) {
+    //                 const quesid = localStorage.getItem('questionid');
+    //                 console.log("seding QUestion" + quesid);
+    //                 const c = await channel.sendMessage({ text: JSON.stringify({ questionid: questionid }) });
+    //                 console.log(c);
+    //             }
+    //         }
 
-            sendQuestionStatus();
-        }
-    }, [questionid])
+    //         sendQuestionStatus();
+    //     }
+    // }, [questionid])
 
 
     // Messsage Pop Up 
@@ -171,4 +171,4 @@ const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuest
     );
 };
 
-export default RealTimeChat;
+export default RealTimeChatForParticipant;

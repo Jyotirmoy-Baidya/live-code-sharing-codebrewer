@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import axiosHandler from './AxiosInstance';
 
 const problemStatements = [
     'Problem 1',
@@ -16,9 +17,9 @@ const ProblemStatementsForVideoConfee = ({ search = '', handleQuestionSharing, s
     const fetchAllQuestions = async () => {
         // setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3010/api/v1/question/all');
-            setProblemStatementList(response.data.questions);
-            console.log(response.data.questions);
+            const response = await axiosHandler('get', 'question/all');
+            setProblemStatementList(response.questions);
+            console.log(response.questions);
         } catch (error) {
             console.log(error);
         }
