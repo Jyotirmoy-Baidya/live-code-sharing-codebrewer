@@ -17,7 +17,7 @@ const ProblemStatementsForVideoConfee = ({ search = '', handleQuestionSharing, s
     const fetchAllQuestions = async () => {
         // setLoading(true);
         try {
-            const response = await axiosHandler('get', 'question/all');
+            const response = await axiosHandler('get', '/question/all');
             setProblemStatementList(response.questions);
             console.log(response.questions);
         } catch (error) {
@@ -44,7 +44,7 @@ const ProblemStatementsForVideoConfee = ({ search = '', handleQuestionSharing, s
         fetchAllQuestions();
     }, [])
     return (
-        <div className='absolute max-h-96 flex flex-col overflow-scroll top-11 -left-2 w-[65%] border border-slate-600 shadow-neutral-400 rounded design-scrollbar'>
+        <div className='z-20 absolute max-h-96 flex flex-col overflow-scroll top-11 -left-2 w-[65%] border border-slate-600 shadow-neutral-400 rounded design-scrollbar'>
             {
                 problemStatementList.filter((ele) => ele.title.toLowerCase().includes(search.toLowerCase())).map((ele, i) => (
                     <React.Fragment key={i}>

@@ -53,17 +53,29 @@ const RealTimeChatForParticipant = ({ appId, roomid, userId, setQuestionBlock, s
                     setMessages(msgs);
                 }
 
-                if (editor !== '') {
-                    console.log("jyoti");
-                    setEditorBoxData(editor);
+                if (setQuestion == true) {
+                    if (questionid != '') {
+                        setQuestionBlock(true);
+                        setSharingQuestion(true);
+                        setQuestionid(questionid);
+                        localStorage.setItem('quesid', questionid);
+                        if (editor != '') {
+                            setEditorBoxData(editor);
+                        }
+                    }
                 }
 
-                if (questionid != '') {
-                    setQuestionBlock(true);
-                    setSharingQuestion(true);
-                    setQuestionid(questionid);
-                    localStorage.setItem('quesid', questionid);
-                }
+                // if (editor !== '') {
+                //     console.log("jyoti");
+                //     setEditorBoxData(editor);
+                // }
+
+                // if (questionid != '') {
+                //     setQuestionBlock(true);
+                //     setSharingQuestion(true);
+                //     setQuestionid(questionid);
+                //     localStorage.setItem('quesid', questionid);
+                // }
 
             });
 

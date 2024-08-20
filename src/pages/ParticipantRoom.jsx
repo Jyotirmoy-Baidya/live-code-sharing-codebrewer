@@ -27,7 +27,7 @@ import LiveProblemForParticipants from './LiveProblemForParticipants';
 
 const ParticipantRoom = ({ roomid, uid }) => {
     const appId = '15b767a0b7dd4fe488826585f7eeb187';
-
+    const { hostuid } = useParams();
 
     const [activeConnection, setActiveConnection] = useState(true);
 
@@ -109,19 +109,47 @@ const ParticipantRoom = ({ roomid, uid }) => {
             <div className={`w-full h-[88%] px-2 gap-2 flex flex-col`}>
                 <div className='flex gap-4'>
                     <div id='localVideo' className={`${questionBlock ? 'w-[50%]' : 'w-[60%]'} p-3 ${sharingQuestion ? 'h-[26rem]' : 'h-[31rem]'} rounded-md flex flex-col bg-primary-black design-scrollbar smooth-transition`}>
+                        {remoteUsers
+                            .filter((user) => user.uid == hostuid) // Replace hostUid with the actual host's UID
+                            .map((user) => {
+                                console.log("check");
+                                return (
+                                    <div key={user.uid} className="h-[31rem] flex justify-center items-center remote-video-container rounded-md smooth-transition bg-primary text-white">
+                                        <RemoteUser user={user} className="rounded-md h-full bg-red-400" />
+                                    </div>
+                                )
+                            })
+                        }
+                        {sharingQuestion &&
+                            <div className='grid grid-cols-4'>
+                                <div className="h-28 flex justify-center items-center remote-video-container rounded-md smooth-transition">
+                                    <LocalUser
+                                        audioTrack={localMicrophoneTrack}
+                                        videoTrack={localCameraTrack}
+                                        cameraOn={cameraOn}
+                                        micOn={micOn}
+                                        playAudio={micOn}
+                                        playVideo={cameraOn}
+                                        className='camera-video'
+                                    />
+                                </div>
+                                {
+                                    remoteUsers.filter((user) => user.uid !== hostuid).map((user) => (
+                                        <>
+                                            <div key={user.uid} className="h-28 flex justify-center items-center remote-video-container rounded-md smooth-transition">
+                                                <RemoteUser user={user} className="rounded-md" />
+                                            </div>
+                                        </>
+
+                                    ))
+                                }
+                            </div>
+                        }
                         {/* Host Screen  */}
-                        <LocalUser
-                            audioTrack={localMicrophoneTrack}
-                            videoTrack={localCameraTrack}
-                            cameraOn={cameraOn}
-                            micOn={micOn}
-                            playAudio={micOn}
-                            playVideo={cameraOn}
-                            className='camera-video'
-                        />
+
                     </div>
                     <div className='grow'>
-                        <button className={`btn flex items-center gap-2 text-white mb-3 border-yellow-500 border hover:shadow-sm  hover:shadow-yellow-500 py-1 px-2 rounded-md ${questionPopUp ? 'w-full' : 'w-60'} flex justify-between video-search-problem-input-block`}>
+                        {/* <button className={`btn flex items-center gap-2 text-white mb-3 border-yellow-500 border hover:shadow-sm  hover:shadow-yellow-500 py-1 px-2 rounded-md ${questionPopUp ? 'w-full' : 'w-60'} flex justify-between video-search-problem-input-block`}>
                             {questionPopUp ?
                                 <div className='flex w-full items-center gap-3 relative'>
                                     <input type='text' className='px-2 py-1 w-full bg-transparent cursor-pointer outline-none video-serach-problem-input' placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -146,13 +174,24 @@ const ParticipantRoom = ({ roomid, uid }) => {
                                     <FaSearch />
                                 </div>
                             }
-                        </button>
+                        </button> */}
                         {!sharingQuestion &&
                             <div className='h-[27.6rem]  p-2 rounded-md bg-primary-black overflow-scroll design-scrollbar'>
 
-                                <div id='remoteVideoGrid' className={`grid ${questionBlock ? 'grid-cols-4' : 'grid-cols-3'} rounded-md gap-4 h-full smooth-transition`}>
+                                <div className={`grid ${questionBlock ? 'grid-cols-4' : 'grid-cols-3'} rounded-md gap-4 h-full smooth-transition`}>
+                                    <div className="h-28 flex justify-center items-center remote-video-container rounded-md smooth-transition">
+                                        <LocalUser
+                                            audioTrack={localMicrophoneTrack}
+                                            videoTrack={localCameraTrack}
+                                            cameraOn={cameraOn}
+                                            micOn={micOn}
+                                            playAudio={micOn}
+                                            playVideo={cameraOn}
+                                            className='camera-video'
+                                        />
+                                    </div>
                                     {
-                                        remoteUsers.map((user) => (
+                                        remoteUsers.filter((user) => user.uid !== hostuid).map((user) => (
                                             <>
                                                 <div key={user.uid} className="h-28 flex justify-center items-center remote-video-container rounded-md smooth-transition">
                                                     <RemoteUser user={user} className="rounded-md" />
@@ -161,6 +200,7 @@ const ParticipantRoom = ({ roomid, uid }) => {
 
                                         ))
                                     }
+
                                 </div>
                             </div>
                         }
@@ -173,7 +213,7 @@ const ParticipantRoom = ({ roomid, uid }) => {
                         }
                     </div>
                     <RealTimeChatForParticipant appId={appId} roomid={roomid} userId={uid} setQuestionBlock={setQuestionBlock} setSharingQuestion={setSharingQuestion} setQuestionid={setQuestionid} questionid={questionid} messages={messages} setMessages={setMessages} editorBoxData={editorBoxData} setEditorBoxData={setEditorBoxData} editorData={editorData} setEditorData={setEditorData} />
-                </div>
+                </div >
                 <div id="controlsToolbar" className="gap-10  mx-auto mt-auto mb-4 text-white flex ">
                     <button className="btn text-3xl" onClick={() => setMic(a => !a)}>
                         {micOn ? <AiOutlineAudio /> : <AiOutlineAudioMuted />}
@@ -190,7 +230,7 @@ const ParticipantRoom = ({ roomid, uid }) => {
                         }}> <MdCallEnd />
                     </button>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

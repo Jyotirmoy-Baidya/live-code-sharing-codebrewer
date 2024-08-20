@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
     baseURL: 'https://tally-backedcode-1.onrender.com/api/v1/',
-    timeout: 10000, // Timeout after 10 seconds
+    timeout: 20000, // Timeout after 10 seconds
     withCredentials: true, // Include cookies in requests by default
     headers: {
         'Content-Type': 'application/json',

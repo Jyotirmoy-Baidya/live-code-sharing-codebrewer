@@ -122,7 +122,7 @@ const HostRoom = ({ roomid, uid }) => {
         <>
             <div className={`w-full h-[88%] px-2 gap-2 flex flex-col`}>
                 <div className='flex gap-4'>
-                    <div id='localVideo' className={`${questionBlock ? 'w-[50%]' : 'w-[60%]'} p-3 ${sharingQuestion ? 'h-[26rem]' : 'h-[31rem]'} rounded-md flex flex-col bg-primary-black design-scrollbar smooth-transition`}>
+                    <div id='localVideo' className={`${questionBlock ? 'w-[50%]' : 'w-[60%]'} p-3 ${sharingQuestion ? 'h-[31rem]' : 'h-[31rem]'} rounded-md flex flex-col bg-primary-black design-scrollbar smooth-transition`}>
                         {/* Host Screen  */}
                         <LocalUser
                             audioTrack={localMicrophoneTrack}
@@ -142,6 +142,20 @@ const HostRoom = ({ roomid, uid }) => {
                                 className='h-[29rem]'
                             />
                         )}
+                        {sharingQuestion &&
+                            <div className='grid grid-cols-4'>
+                                {
+                                    remoteUsers.map((user) => (
+                                        <>
+                                            <div key={user.uid} className="h-28 flex justify-center items-center remote-video-container rounded-md smooth-transition">
+                                                <RemoteUser user={user} className="rounded-md" />
+                                            </div>
+                                        </>
+
+                                    ))
+                                }
+                            </div>
+                        }
                         {/* {
                             <div className={`h-[29rem] rounded-md bg-violet-800 `}>
                                 Jyot
