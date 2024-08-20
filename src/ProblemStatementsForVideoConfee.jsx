@@ -46,7 +46,7 @@ const ProblemStatementsForVideoConfee = ({ search = '', handleQuestionSharing, s
     return (
         <div className='z-20 absolute max-h-96 flex flex-col overflow-scroll top-11 -left-2 w-[65%] border border-slate-600 shadow-neutral-400 rounded design-scrollbar'>
             {
-                problemStatementList.filter((ele) => ele.title.toLowerCase().includes(search.toLowerCase())).map((ele, i) => (
+                problemStatementList?.filter((ele) => ele.title.toLowerCase().includes(search.toLowerCase())).map((ele, i) => (
                     <React.Fragment key={i}>
                         <div className='flex text-lg uppercase font-semibold tracking-wider bg-slate-950 hover:bg-slate-600  justify-between text-left gap-2 items-center py-3 px-4 problem-block'>
                             <div>
