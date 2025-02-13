@@ -13,7 +13,6 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json',
     },
 });
-
 /**
  * Common Axios Handler Function
  * @param {String} method - HTTP method (GET, POST, PUT, DELETE, etc.)
