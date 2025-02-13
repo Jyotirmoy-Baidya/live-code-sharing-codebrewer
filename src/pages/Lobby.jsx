@@ -89,7 +89,7 @@ const Lobby = () => {
                                 <div className='rounded-md shadow shadow-slate-400 px-3 py-2 bg-gray-600 w-48 tracking-widest flex'>
                                     {hostRoomid}
                                     <div className='ms-auto'><CopyToClipboard textToCopy={`${hostRoomid}`} /></div>
-                                    <div><CopyLinkToClipboard textToCopy={`http://localhost:5173/participant/${hostRoomid}`} /></div>
+                                    <div><CopyLinkToClipboard textToCopy={`https://codecrafters-live.netlify.app/participant/${hostRoomid}`} /></div>
                                 </div>
                             </div>
 
@@ -98,7 +98,7 @@ const Lobby = () => {
                                 <div className='rounded-md shadow shadow-slate-400 px-3 py-2 bg-gray-600 w-48 tracking-widest flex'>
                                     {hostuid}
                                     <div className='ms-auto'><CopyToClipboard textToCopy={`${hostuid}`} /></div>
-                                    <div><CopyLinkToClipboard textToCopy={`http://localhost:5173/participant/${hostRoomid}/${hostuid}`} /></div>
+                                    <div><CopyLinkToClipboard textToCopy={`https://codecrafters-live.netlify.app//participant/${hostRoomid}/${hostuid}`} /></div>
                                 </div>
                             </div>
                         </>
