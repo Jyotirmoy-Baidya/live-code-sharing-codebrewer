@@ -149,32 +149,6 @@ const ParticipantRoom = ({ roomid, uid }) => {
 
                     </div>
                     <div className='grow'>
-                        {/* <button className={`btn flex items-center gap-2 text-white mb-3 border-yellow-500 border hover:shadow-sm  hover:shadow-yellow-500 py-1 px-2 rounded-md ${questionPopUp ? 'w-full' : 'w-60'} flex justify-between video-search-problem-input-block`}>
-                            {questionPopUp ?
-                                <div className='flex w-full items-center gap-3 relative'>
-                                    <input type='text' className='px-2 py-1 w-full bg-transparent cursor-pointer outline-none video-serach-problem-input' placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
-                                    <FaSearch />
-                                    <GiCrossMark className='text-red-500 hover:scale-[120%]'
-                                        onClick={() => {
-                                            if (sharingQuestion === true) {
-                                                setQuestionPopUp(false)
-                                            }
-                                            else {
-                                                setQuestionBlock(false);
-                                                setQuestionPopUp(false);
-                                            }
-                                        }} />
-                                    {questionPopUp &&
-                                        <ProblemStatementsForVideoConfee search={search} handleQuestionSharing={handleQuestionSharing} setQuestionid={setQuestionid} />
-                                    }
-                                </div>
-                                :
-                                <div className=' px-2 py-1 w-full flex items-center justify-between' onClick={() => { setQuestionBlock(true); setQuestionPopUp(true) }}>
-                                    <div>Search Problem</div>
-                                    <FaSearch />
-                                </div>
-                            }
-                        </button> */}
                         {!sharingQuestion &&
                             <div className='h-[27.6rem]  p-2 rounded-md bg-primary-black overflow-scroll design-scrollbar'>
 
