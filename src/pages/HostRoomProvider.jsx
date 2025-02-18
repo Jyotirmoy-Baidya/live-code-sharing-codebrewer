@@ -12,7 +12,7 @@ const HostRoomProvider = () => {
 
     const [host, setHost] = useState();
 
-    const { roomid } = useParams();
+    const { roomid, hostuid } = useParams();
 
 
 
@@ -49,7 +49,7 @@ const HostRoomProvider = () => {
 
                     <>
                         <LoginHeader />
-                        <HostRoom uid={generateRandomCode()} roomid={roomid} />
+                        <HostRoom uid={hostuid} roomid={roomid} />
                     </>
             }
         </>

@@ -75,10 +75,10 @@ const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuest
 
         initRTM();
 
-        // return () => {
-        //     if (channel) channel.leave();
-        //     if (client) client.logout();
-        // };
+        return () => {
+            if (channel) channel.leave();
+            if (client) client.logout();
+        };
     }, [appId, roomid, userId]);
 
 
@@ -109,7 +109,7 @@ const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuest
                 console.log(editorMsg);
 
                 // Send the message as a JSON string
-                await channel.sendMessage({ text: JSON.stringify({ editor: editorMsg }) });
+                await channel.sendMessage({ text: JSON.stringify({ questionid: questionid, setQuestion: true, editor: editorMsg }) });
             }
 
             sendEditorData(editorData)
@@ -125,7 +125,7 @@ const RealTimeChat = ({ appId, roomid, userId, setQuestionBlock, setSharingQuest
                 if (localStorage.getItem('questionid')) {
                     const quesid = localStorage.getItem('questionid');
                     console.log("seding QUestion" + quesid);
-                    const c = await channel.sendMessage({ text: JSON.stringify({ questionid: questionid }) });
+                    const c = await channel.sendMessage({ text: JSON.stringify({ questionid: questionid, setQuestion: true }) });
                     console.log(c);
                 }
             }

@@ -1,17 +1,18 @@
 import axios from 'axios';
 
-const renderUrl2 = 'https://codebrewers-backend-1.onrender.com'
+const renderUrl = 'https://tally-backedcode-1.onrender.com'
+const localUrl = 'http://localhost:3010'
 
+const renderUrl2 = 'https://codebrewers-backend-1.onrender.com'
 
 const axiosInstance = axios.create({
     baseURL: `${renderUrl2}/api/v1/`,
-    timeout: 10000, // Timeout after 10 seconds
+    timeout: 20000, // Timeout after 10 seconds
     withCredentials: true, // Include cookies in requests by default
     headers: {
         'Content-Type': 'application/json',
     },
 });
-
 /**
  * Common Axios Handler Function
  * @param {String} method - HTTP method (GET, POST, PUT, DELETE, etc.)

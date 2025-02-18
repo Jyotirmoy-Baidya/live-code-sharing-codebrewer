@@ -228,7 +228,7 @@ const LiveProblem = ({ questionid = '', editorBoxData, setEditorBoxData, editorD
             console.error('No ID provided to fetch question details.');
             return null;
         }
-        const response = await axiosHandler('get', `question/${id}`);
+        const response = await axiosHandler('get', `/question/${id}`);
         if (response.success == true) {
             setProblem(response.question);
         }
